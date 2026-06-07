@@ -65,6 +65,12 @@
   /* ─── NAVIGATION ─── */
   function goTo(page) {
     closeMenu();
+
+    // Scroll to top BEFORE DOM changes — prevents iOS Safari from restoring scroll
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+
     document.getElementById('top-page').style.display = 'none';
     document.querySelectorAll('.sub-page').forEach(p => p.classList.remove('active'));
 
@@ -74,7 +80,10 @@
       const target = document.getElementById('page-' + page);
       if (target) target.classList.add('active');
     }
-    requestAnimationFrame(() => window.scrollTo(0, 0));
+
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
   }
 
   /* ─── CAROUSEL ─── */
