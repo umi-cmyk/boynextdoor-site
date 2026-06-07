@@ -500,17 +500,20 @@
       display:grid;
       grid-template-columns: repeat(3, 1fr);
       gap:0;
+      width:100%;
     }
 
     /* card */
     .checkin-card {
       display:flex; flex-direction:column; align-items:center;
-      gap:10px; padding:18px 8px 14px;
+      gap:10px; padding:18px 4px 14px;
       border-radius:16px;
       border:1px solid rgba(255,255,255,0.08);
       background:rgba(255,255,255,0.03);
       transition:border-color .3s, background .3s;
       position:relative; overflow:hidden;
+      /* Safari: prevent content from breaking grid columns */
+      min-width:0; box-sizing:border-box;
     }
     .checkin-card.done {
       border-color:rgba(255,255,255,0.22);
@@ -546,10 +549,12 @@
 
     /* name */
     .checkin-name {
-      font-family:var(--fp); font-size:27px;
-      letter-spacing:2px; text-transform:uppercase;
+      font-family:var(--fp); font-size:clamp(12px, 4vw, 27px);
+      letter-spacing:1px; text-transform:uppercase;
       color:rgba(255,255,255,0.55);
       transition:color .3s;
+      text-align:center; word-break:break-all;
+      width:100%;
     }
     .checkin-card.done .checkin-name { color:rgba(255,255,255,0.85); }
 
@@ -566,7 +571,7 @@
       position:relative; overflow:hidden;
     }
     .checkin-btn-label {
-      font-family:var(--fp); font-size:20px;
+      font-family:var(--fp); font-size:clamp(11px, 3.5vw, 20px);
       letter-spacing:1px; text-transform:uppercase;
       color:rgba(255,255,255,0.5);
       transition:opacity .25s, color .25s;
