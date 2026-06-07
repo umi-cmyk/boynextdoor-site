@@ -533,9 +533,9 @@
     .checkin-icon {
       width:52px; height:52px; border-radius:12px;
       display:block; position:relative; z-index:1;
-      transition:transform .3s;
+      transition:transform .3s, opacity .3s;
     }
-    .checkin-card.done .checkin-icon { transform:scale(1.06); }
+    .checkin-card.done .checkin-icon { transform:scale(1.06); opacity:0.45; }
     .checkin-ring {
       position:absolute; inset:-3px;
       border-radius:15px;
@@ -560,16 +560,16 @@
 
     .checkin-card { cursor:pointer; }
     .checkin-check {
-      position:absolute; top:-5px; right:-5px;
-      transform:scale(0.4);
+      position:absolute; top:-7px; right:-7px;
+      transform:scale(0.3);
       transform-origin:top right;
-      width:18px; height:18px;
+      width:22px; height:22px;
       background:#fff; border-radius:50%;
       color:#111;
       opacity:0;
       transition:opacity .2s, transform .3s cubic-bezier(.34,1.56,.64,1);
-      z-index:2; pointer-events:none;
-      padding:3px; box-sizing:border-box;
+      z-index:3; pointer-events:none;
+      padding:4px; box-sizing:border-box;
     }
     .checkin-card.done .checkin-check {
       opacity:1;
