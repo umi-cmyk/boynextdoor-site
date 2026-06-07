@@ -74,7 +74,7 @@
       const target = document.getElementById('page-' + page);
       if (target) target.classList.add('active');
     }
-    window.scrollTo(0, 0);
+    requestAnimationFrame(() => window.scrollTo(0, 0));
   }
 
   /* ─── CAROUSEL ─── */

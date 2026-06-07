@@ -558,41 +558,19 @@
     }
     .checkin-card.done .checkin-name { color:rgba(255,255,255,0.85); }
 
-    /* button */
-    .checkin-btn {
-      display:flex; align-items:center; justify-content:center;
-      gap:5px;
-      width:100%; padding:7px 0;
-      border-radius:8px;
-      border:1px solid rgba(255,255,255,0.15);
-      background:transparent;
-      cursor:pointer;
-      transition:background .25s, border-color .25s;
-      position:relative; overflow:hidden;
-    }
-    .checkin-btn-label {
-      font-family:var(--fp); font-size:clamp(11px, 3.5vw, 20px);
-      letter-spacing:1px; text-transform:uppercase;
-      color:rgba(255,255,255,0.5);
-      transition:opacity .25s, color .25s;
-    }
+    .checkin-card { cursor:pointer; }
     .checkin-check {
-      width:14px; height:14px;
-      color:rgba(255,255,255,0.5);
-      opacity:0; transform:scale(0.6);
+      position:absolute; top:50%; left:50%;
+      transform:translate(-50%,-50%) scale(0.6);
+      width:22px; height:22px;
+      color:#fff;
+      opacity:0;
       transition:opacity .25s, transform .3s cubic-bezier(.34,1.56,.64,1);
-      flex-shrink:0;
-    }
-    .checkin-card.done .checkin-btn {
-      background:rgba(255,255,255,0.1);
-      border-color:rgba(255,255,255,0.3);
-    }
-    .checkin-card.done .checkin-btn-label {
-      color:rgba(255,255,255,0.9);
+      z-index:2; pointer-events:none;
     }
     .checkin-card.done .checkin-check {
-      opacity:1; transform:scale(1);
-      color:rgba(255,255,255,0.9);
+      opacity:1;
+      transform:translate(-50%,-50%) scale(1);
     }
 
     /* progress bar */
