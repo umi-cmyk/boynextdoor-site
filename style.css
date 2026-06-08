@@ -481,19 +481,24 @@
       margin-bottom:20px; padding-left:4px;
     }
 
-    /* date + streak row */
-    .checkin-date-row {
-      display:flex; align-items:baseline; gap:12px;
-      margin-bottom:24px; padding-left:4px;
+    /* weekly calendar */
+    .checkin-week {
+      display:flex; justify-content:space-around; align-items:flex-start;
+      padding:8px 4px 20px;
     }
-    .checkin-date {
-      font-family:var(--fp); font-size:30px;
-      letter-spacing:3px; color:rgba(255,255,255,.5);
+    .cw-col {
+      display:flex; flex-direction:column; align-items:center; gap:6px;
     }
-    .checkin-streak {
-      font-family:var(--fp); font-size:27px;
-      letter-spacing:2px; color:rgba(255,255,255,.35);
+    .cw-day {
+      font-family:var(--fp); font-size:13px; letter-spacing:1px;
+      color:rgba(255,255,255,0.35); text-transform:uppercase;
     }
+    .cw-today .cw-day { color:rgba(255,255,255,0.75); }
+    .cw-icon {
+      width:24px; height:24px; object-fit:contain;
+      opacity:0; transition:opacity .4s;
+    }
+    .cw-icon.done { opacity:1; }
 
     /* grid */
     .checkin-grid {
