@@ -473,7 +473,7 @@
     /* line removed */
 
     .vote-content { padding:0 20px; }
-    .vote-section { padding-top:32px; }
+    .vote-section { padding-top:32px; position:relative; overflow:hidden; }
     .vote-section-label {
       font-family:var(--fp); font-size:32px;
       letter-spacing:6px; text-transform:uppercase;
@@ -491,7 +491,7 @@
       letter-spacing:3px; color:rgba(255,255,255,.5);
     }
     .checkin-streak {
-      font-family:var(--fp); font-size:18px;
+      font-family:var(--fp); font-size:27px;
       letter-spacing:2px; color:rgba(255,255,255,.35);
     }
 
@@ -530,12 +530,23 @@
     .checkin-icon-wrap {
       position:relative; width:52px; height:52px;
     }
+    .checkin-icon-wrap::after {
+      content:'';
+      position:absolute; inset:0;
+      border-radius:12px;
+      background:rgba(0,0,0,0);
+      transition:background .3s;
+      z-index:2; pointer-events:none;
+    }
+    .checkin-card.done .checkin-icon-wrap::after {
+      background:rgba(0,0,0,0.3);
+    }
     .checkin-icon {
       width:52px; height:52px; border-radius:12px;
       display:block; position:relative; z-index:1;
-      transition:transform .3s, opacity .3s;
+      transition:transform .3s;
     }
-    .checkin-card.done .checkin-icon { transform:scale(1.06); opacity:0.45; }
+    .checkin-card.done .checkin-icon { transform:scale(1.06); }
     .checkin-ring {
       position:absolute; inset:-3px;
       border-radius:15px;
@@ -592,7 +603,7 @@
       width:0%;
     }
     .checkin-progress-label {
-      font-family:var(--fp); font-size:10px;
+      font-family:var(--fp); font-size:27px;
       letter-spacing:2px; color:rgba(255,255,255,0.35);
       flex-shrink:0;
     }
@@ -606,11 +617,10 @@
 
     /* ── all-complete celebration overlay ── */
     #checkin-celebrate {
-      position:fixed; inset:0; z-index:9000;
-      pointer-events:none; overflow:hidden;
-    }
-    #checkin-celebrate canvas {
-      position:absolute; inset:0; width:100%; height:100%;
+      position:absolute; inset:0; z-index:100;
+      pointer-events:none;
+      background:rgba(0,0,0,0.55);
+      border-radius:inherit;
     }
     .celebrate-msg {
       position:absolute; top:50%; left:50%;
@@ -625,12 +635,6 @@
       font-family:var(--fc); font-size:38px;
       color:#fff; letter-spacing:3px;
       text-shadow:0 0 30px rgba(255,255,255,.6);
-      display:block; margin-bottom:8px;
-    }
-    .celebrate-msg-sub {
-      font-family:var(--fp); font-size:11px;
-      letter-spacing:6px; text-transform:uppercase;
-      color:rgba(255,255,255,.7);
       display:block;
     }
     @keyframes celebrate-fade {
