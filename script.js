@@ -298,13 +298,12 @@
 
   /* ─── CHECK-IN ─── */
   (function() {
-    const APPS = ['idolchamp','mnetplus','fancast','mubeat','muniverse','linc','tin','higher'];
-    const KEY_DATE      = 'checkin_date';
-    const KEY_DONE      = 'checkin_done';
-    const KEY_STREAK    = 'checkin_streak';
-    const KEY_LASTDAY   = 'checkin_lastday';
-    const KEY_COUNTED   = 'checkin_counted';
-    const KEY_COMPLETED = 'checkin_completed_dates'; // array of fully-done date strings
+    const APPS = ['fancast','higher','idolchamp','mnetplus','mubeat','muniverse'];
+    const KEY_DATE    = 'checkin_date';
+    const KEY_DONE    = 'checkin_done';
+    const KEY_STREAK  = 'checkin_streak';
+    const KEY_LASTDAY = 'checkin_lastday';
+    const KEY_COUNTED = 'checkin_counted'; // date when streak was counted today
 
     function todayStr() {
       const d = new Date();
@@ -336,44 +335,11 @@
     function updateStreak(done) {
       if (done.length === APPS.length) {
         const today = todayStr();
-        if (localStorage.getItem(KEY_COUNTED) === today) return;
+        if (localStorage.getItem(KEY_COUNTED) === today) return; // already counted today
         const streak = parseInt(localStorage.getItem(KEY_STREAK) || '0') + 1;
         localStorage.setItem(KEY_STREAK,  String(streak));
         localStorage.setItem(KEY_LASTDAY, today);
         localStorage.setItem(KEY_COUNTED, today);
-        // record this date as fully completed
-        const completed = JSON.parse(localStorage.getItem(KEY_COMPLETED) || '[]');
-        if (!completed.includes(today)) {
-          completed.push(today);
-          localStorage.setItem(KEY_COMPLETED, JSON.stringify(completed));
-        }
-      }
-    }
-
-    function renderWeek() {
-      const container = document.getElementById('checkin-week');
-      if (!container) return;
-      const completed = JSON.parse(localStorage.getItem(KEY_COMPLETED) || '[]');
-      const today = new Date();
-      const dow = today.getDay();
-      const sunday = new Date(today);
-      sunday.setDate(today.getDate() - dow);
-      const labels = ['S','M','T','W','T','F','S'];
-      container.innerHTML = '';
-      for (let i = 0; i < 7; i++) {
-        const d = new Date(sunday);
-        d.setDate(sunday.getDate() + i);
-        const dStr = d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
-        const isDone = completed.includes(dStr);
-        const col = document.createElement('div');
-        col.className = 'cw-col' + (i === dow ? ' cw-today' : '');
-        const img = document.createElement('img');
-        img.src = 'homelogo2.png';
-        img.alt = '';
-        img.className = 'cw-icon' + (isDone ? ' done' : '');
-        col.innerHTML = '<span class="cw-day">' + labels[i] + '</span>';
-        col.appendChild(img);
-        container.appendChild(col);
       }
     }
 
@@ -386,8 +352,12 @@
         dateEl.textContent = days[d.getDay()] + '  ' + String(d.getMonth()+1).padStart(2,'0') + '.' + String(d.getDate()).padStart(2,'0');
       }
 
-      // weekly calendar
-      renderWeek();
+      // streak label
+      const streakEl = document.getElementById('checkin-streak');
+      if (streakEl) {
+        const s = parseInt(localStorage.getItem(KEY_STREAK) || '0');
+        streakEl.textContent = s > 0 ? s + ' day streak' : '';
+      }
 
       // cards
       APPS.forEach(app => {

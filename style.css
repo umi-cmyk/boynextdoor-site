@@ -495,29 +495,10 @@
       letter-spacing:2px; color:rgba(255,255,255,.35);
     }
 
-    /* weekly calendar */
-    .checkin-week {
-      display:flex; justify-content:space-around; align-items:flex-start;
-      padding:8px 4px 20px;
-    }
-    .cw-col {
-      display:flex; flex-direction:column; align-items:center; gap:6px;
-    }
-    .cw-day {
-      font-family:var(--fp); font-size:12px; letter-spacing:1px;
-      color:rgba(255,255,255,0.35); text-transform:uppercase;
-    }
-    .cw-today .cw-day { color:rgba(255,255,255,0.7); }
-    .cw-icon {
-      width:22px; height:22px; object-fit:contain;
-      opacity:0; transition:opacity .4s;
-    }
-    .cw-icon.done { opacity:1; }
-
     /* grid */
     .checkin-grid {
       display:grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap:0;
       width:100%;
     }
