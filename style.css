@@ -530,12 +530,23 @@
     .checkin-icon-wrap {
       position:relative; width:52px; height:52px;
     }
+    .checkin-icon-wrap::after {
+      content:'';
+      position:absolute; inset:0;
+      border-radius:12px;
+      background:rgba(0,0,0,0);
+      transition:background .3s;
+      z-index:2; pointer-events:none;
+    }
+    .checkin-card.done .checkin-icon-wrap::after {
+      background:rgba(0,0,0,0.3);
+    }
     .checkin-icon {
       width:52px; height:52px; border-radius:12px;
       display:block; position:relative; z-index:1;
-      transition:transform .3s, opacity .3s;
+      transition:transform .3s;
     }
-    .checkin-card.done .checkin-icon { transform:scale(1.06); opacity:0.45; }
+    .checkin-card.done .checkin-icon { transform:scale(1.06); }
     .checkin-ring {
       position:absolute; inset:-3px;
       border-radius:15px;
