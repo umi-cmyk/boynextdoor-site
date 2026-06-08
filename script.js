@@ -305,7 +305,8 @@
     const KEY_LASTDAY   = 'checkin_lastday';
     const KEY_COUNTED   = 'checkin_counted';
     const KEY_COMPLETED = 'checkin_completed_dates';
-    const KEY_APPS_VER  = 'checkin_apps_ver';
+    const KEY_SCHEMA    = 'checkin_schema';
+    const SCHEMA_VER    = '3'; // 上げると全ユーザのチェック状態を強制リセット
 
     function todayStr() {
       const d = new Date();
@@ -313,13 +314,10 @@
     }
 
     function loadState() {
-      // APPSリストが変わっていたら当日チェック状態をリセット
-      const appsVer = APPS.join(',');
-      if (localStorage.getItem(KEY_APPS_VER) !== appsVer) {
-        localStorage.setItem(KEY_APPS_VER, appsVer);
-        localStorage.removeItem(KEY_DATE);
-        localStorage.removeItem(KEY_DONE);
-        localStorage.removeItem(KEY_COUNTED);
+      // スキーマバージョンが変わっていたら当日チェック状態をリセット
+      if (localStorage.getItem(KEY_SCHEMA) !== SCHEMA_VER) {
+        [KEY_DATE, KEY_DONE, KEY_COUNTED, KEY_STREAK, KEY_LASTDAY].forEach(k => localStorage.removeItem(k));
+        localStorage.setItem(KEY_SCHEMA, SCHEMA_VER);
       }
 
       const saved = localStorage.getItem(KEY_DATE);
