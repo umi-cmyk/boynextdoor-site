@@ -350,15 +350,11 @@
         localStorage.setItem(KEY_STREAK,  String(streak));
         localStorage.setItem(KEY_LASTDAY, today);
         localStorage.setItem(KEY_COUNTED, today);
-        const completed = JSON.parse(localStorage.getItem(KEY_COMPLETED) || '[]');
-        if (!completed.includes(today)) {
-          completed.push(today);
-          localStorage.setItem(KEY_COMPLETED, JSON.stringify(completed));
-        }
+        // スタンプのロックは深夜0時に行う（チェックを外したら消えるようにするため）
       }
     }
 
-    function renderWeek() {
+    function renderWeek(done) {
       const container = document.getElementById('checkin-week');
       if (!container) return;
       const completed = JSON.parse(localStorage.getItem(KEY_COMPLETED) || '[]');
@@ -372,7 +368,11 @@
         const d = new Date(sunday);
         d.setDate(sunday.getDate() + i);
         const dStr = d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
-        const isDone = completed.includes(dStr);
+        // 今日：現在のチェック状態がすべて揃っているか（ライブ）
+        // 過去：深夜0時にロックされた記録
+        const isDone = (i === dow)
+          ? done.length === APPS.length
+          : completed.includes(dStr);
         const col = document.createElement('div');
         col.className = 'cw-col' + (i === dow ? ' cw-today' : '');
         const daySpan = document.createElement('span');
@@ -390,7 +390,7 @@
 
     function renderUI(done) {
       // weekly calendar
-      renderWeek();
+      renderWeek(done);
 
       // cards
       APPS.forEach(app => {
@@ -442,9 +442,20 @@
       const next = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0);
       const msUntilMidnight = next - now;
       setTimeout(() => {
-        const done = loadState(); // 日付変わったのでloadStateがリセットしてくれる
+        // 深夜0時時点で全チェック済みならスタンプをロック
+        const currentDone = JSON.parse(localStorage.getItem(KEY_DONE) || '[]')
+          .filter(app => APPS.includes(app));
+        if (currentDone.length === APPS.length) {
+          const todayDate = todayStr();
+          const completed = JSON.parse(localStorage.getItem(KEY_COMPLETED) || '[]');
+          if (!completed.includes(todayDate)) {
+            completed.push(todayDate);
+            localStorage.setItem(KEY_COMPLETED, JSON.stringify(completed));
+          }
+        }
+        const done = loadState();
         renderUI(done);
-        scheduleMidnightReset(); // 翌日もセット
+        scheduleMidnightReset();
       }, msUntilMidnight);
     }
 
