@@ -478,7 +478,7 @@
       font-family:var(--fp); font-size:32px;
       letter-spacing:6px; text-transform:uppercase;
       color:rgba(255,255,255,0.65);
-      margin-bottom:20px; padding-left:4px;
+      margin-bottom:20px; padding-left:20px;
     }
 
     /* weekly calendar */
@@ -490,7 +490,7 @@
       display:flex; flex-direction:column; align-items:center; gap:6px;
     }
     .cw-day {
-      font-family:var(--fp); font-size:13px; letter-spacing:1px;
+      font-family:var(--fp); font-size:29px; letter-spacing:1px;
       color:rgba(255,255,255,0.35); text-transform:uppercase;
     }
     .cw-today .cw-day { color:rgba(255,255,255,0.75); }
