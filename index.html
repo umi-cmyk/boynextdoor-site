@@ -8,14 +8,6 @@
 </head>
 <body>
 
-<!-- Check-in celebration overlay -->
-<div id="checkin-celebrate" style="display:none;">
-  <canvas id="celebrate-canvas"></canvas>
-  <div class="celebrate-msg" id="celebrate-msg">
-    <span class="celebrate-msg-title">All Done!</span>
-    <span class="celebrate-msg-sub">check-in complete</span>
-  </div>
-</div>
 
 <!-- SVG liquid glass distortion filter -->
 <svg style="position:absolute;width:0;height:0;" xmlns="http://www.w3.org/2000/svg">
@@ -74,7 +66,7 @@
   <div id="top-page">
     <div class="hero-video-wrap">
       <iframe
-        src="https://www.youtube.com/embed/vvShNAb-JvQ?autoplay=1&mute=1&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&loop=1&playlist=vvShNAb-JvQ,dJ0s1r4cfs0,MfXDnkug92c,l9vlcK5QQa0"
+        src="https://www.youtube.com/embed/m2uO4FD5csM?autoplay=1&mute=1&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&loop=1&playlist=m2uO4FD5csM,vvShNAb-JvQ,dJ0s1r4cfs0,MfXDnkug92c,l9vlcK5QQa0"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
         referrerpolicy="strict-origin-when-cross-origin"
         frameborder="0"
@@ -136,6 +128,7 @@
             <button class="car-prev" onclick="carMove('mv',-1)" aria-label="prev">&#9664;</button>
             <div class="car-viewport" data-carid="mv">
               <div class="car-track" id="track-mv">
+                <div class="car-slide"><div class="yt-facade" data-vid="zGsj0fDHB_s"><img src="https://img.youtube.com/vi/zGsj0fDHB_s/mqdefault.jpg" alt=""/><button class="yt-play" aria-label="Play"></button></div></div>
                 <div class="car-slide"><div class="yt-facade" data-vid="WxGWMI2B7r8"><img src="https://img.youtube.com/vi/WxGWMI2B7r8/mqdefault.jpg" alt=""/><button class="yt-play" aria-label="Play"></button></div></div>
               </div>
             </div>
@@ -218,6 +211,7 @@
             <button class="car-prev" onclick="carMove('gd',-1)" aria-label="prev">&#9664;</button>
             <div class="car-viewport" data-carid="gd">
               <div class="car-track" id="track-gd">
+                <div class="car-slide"><div class="yt-facade" data-vid="ZETcNsOYWUU"><img src="https://img.youtube.com/vi/ZETcNsOYWUU/mqdefault.jpg" alt=""/><button class="yt-play" aria-label="Play"></button></div></div>
                 <div class="car-slide"><div class="yt-facade" data-vid="vA2-XEMC22c"><img src="https://img.youtube.com/vi/vA2-XEMC22c/mqdefault.jpg" alt=""/><button class="yt-play" aria-label="Play"></button></div></div>
               </div>
             </div>
@@ -326,6 +320,12 @@
             <div class="checkin-progress-fill" id="checkin-progress-fill"></div>
           </div>
           <span class="checkin-progress-label" id="checkin-progress-label">0 / 6</span>
+        </div>
+
+        <div id="checkin-celebrate" style="display:none;">
+          <div class="celebrate-msg" id="celebrate-msg">
+            <span class="celebrate-msg-title">All Done!</span>
+          </div>
         </div>
 
       </section>

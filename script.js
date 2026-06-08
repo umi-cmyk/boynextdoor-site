@@ -303,6 +303,7 @@
     const KEY_DONE    = 'checkin_done';
     const KEY_STREAK  = 'checkin_streak';
     const KEY_LASTDAY = 'checkin_lastday';
+    const KEY_COUNTED = 'checkin_counted'; // date when streak was counted today
 
     function todayStr() {
       const d = new Date();
@@ -333,9 +334,12 @@
 
     function updateStreak(done) {
       if (done.length === APPS.length) {
+        const today = todayStr();
+        if (localStorage.getItem(KEY_COUNTED) === today) return; // already counted today
         const streak = parseInt(localStorage.getItem(KEY_STREAK) || '0') + 1;
         localStorage.setItem(KEY_STREAK,  String(streak));
-        localStorage.setItem(KEY_LASTDAY, todayStr());
+        localStorage.setItem(KEY_LASTDAY, today);
+        localStorage.setItem(KEY_COUNTED, today);
       }
     }
 
