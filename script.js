@@ -305,6 +305,7 @@
     const KEY_LASTDAY   = 'checkin_lastday';
     const KEY_COUNTED   = 'checkin_counted';
     const KEY_COMPLETED = 'checkin_completed_dates';
+    const KEY_APPS_VER  = 'checkin_apps_ver';
 
     function todayStr() {
       const d = new Date();
@@ -312,10 +313,18 @@
     }
 
     function loadState() {
+      // APPSリストが変わっていたら当日チェック状態をリセット
+      const appsVer = APPS.join(',');
+      if (localStorage.getItem(KEY_APPS_VER) !== appsVer) {
+        localStorage.setItem(KEY_APPS_VER, appsVer);
+        localStorage.removeItem(KEY_DATE);
+        localStorage.removeItem(KEY_DONE);
+        localStorage.removeItem(KEY_COUNTED);
+      }
+
       const saved = localStorage.getItem(KEY_DATE);
       const today = todayStr();
       if (saved !== today) {
-        // 新しい日 → リセット。連続日数を計算
         const streak   = parseInt(localStorage.getItem(KEY_STREAK) || '0');
         const lastDay  = localStorage.getItem(KEY_LASTDAY) || '';
         const yesterday = new Date(); yesterday.setDate(yesterday.getDate()-1);
@@ -326,7 +335,9 @@
         localStorage.setItem(KEY_STREAK,  String(newStreak));
         localStorage.setItem(KEY_LASTDAY, saved || '');
       }
-      return JSON.parse(localStorage.getItem(KEY_DONE) || '[]');
+      // 現在のAPPSに含まれないアプリをフィルタして返す
+      const done = JSON.parse(localStorage.getItem(KEY_DONE) || '[]');
+      return done.filter(app => APPS.includes(app));
     }
 
     function saveState(done) {
@@ -441,6 +452,7 @@
 
     window.addEventListener('load', () => {
       const done = loadState();
+      saveState(done); // フィルタ済みデータを書き戻す
       renderUI(done);
       scheduleMidnightReset();
     });
