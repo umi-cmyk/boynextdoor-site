@@ -467,15 +467,15 @@
       const DAYS   = END - START + 1; // 18
       const DAY_W  = 34;  // px per day column
       const ROW_H  = 56;  // px per show row
-      const HDR_H  = 46;  // date header height
+      const HDR_H  = 52;  // date header height
       const LABEL_W = 76; // left column width
 
       const SHOWS = [
-        { img:'innga.webp',                color:'rgba(80,150,240,0.75)',  rounds:[[8,12],[15,19]]  },
-        { img:'showchampion.png',          color:'rgba(155,105,230,0.75)', rounds:[[12,15],[19,22]] },
-        { img:'showmusiccore.png',         color:'rgba(65,190,120,0.75)',  rounds:[[16,18],[23,25]] },
-        { img:'M_Countdown_2024_Logo.png', color:'rgba(235,145,55,0.75)',  rounds:[[13,16],[20,23]] },
-        { img:'musicbank.webp',            color:'rgba(220,85,85,0.75)',   rounds:[[14,17],[21,24]] },
+        { img:'innga.png',        color:'rgba(80,150,240,0.75)',  rounds:[[8,12],[15,19]]  },
+        { img:'showchampion.png', color:'rgba(155,105,230,0.75)', rounds:[[12,15],[19,22]] },
+        { img:'showmusiccore.png',color:'rgba(65,190,120,0.75)',  rounds:[[16,18],[23,25]] },
+        { img:'M_Countdown.png',  color:'rgba(235,145,55,0.75)',  rounds:[[13,16],[20,23]] },
+        { img:'musicbank.png',    color:'rgba(220,85,85,0.75)',   rounds:[[14,17],[21,24]] },
       ];
 
       const now    = new Date();
