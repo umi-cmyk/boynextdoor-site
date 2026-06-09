@@ -466,15 +466,16 @@
       const START  = 8, END = 25;
       const DAYS   = END - START + 1; // 18
       const DAY_W  = 34;  // px per day column
-      const ROW_H  = 42;  // px per show row
-      const HDR_H  = 30;  // date header height
+      const ROW_H  = 56;  // px per show row
+      const HDR_H  = 46;  // date header height
+      const LABEL_W = 76; // left column width
 
       const SHOWS = [
-        { name:'인기가요',  color:'rgba(80,150,240,0.75)',  rounds:[[8,12],[15,19]]  },
-        { name:'Champion', color:'rgba(155,105,230,0.75)', rounds:[[12,15],[19,22]] },
-        { name:'음악중심',  color:'rgba(65,190,120,0.75)',  rounds:[[16,18],[23,25]] },
-        { name:'Countdown',color:'rgba(235,145,55,0.75)',  rounds:[[13,16],[20,23]] },
-        { name:'뮤직뱅크',  color:'rgba(220,85,85,0.75)',   rounds:[[14,17],[21,24]] },
+        { img:'innga.webp',                color:'rgba(80,150,240,0.75)',  rounds:[[8,12],[15,19]]  },
+        { img:'showchampion.png',          color:'rgba(155,105,230,0.75)', rounds:[[12,15],[19,22]] },
+        { img:'showmusiccore.png',         color:'rgba(65,190,120,0.75)',  rounds:[[16,18],[23,25]] },
+        { img:'M_Countdown_2024_Logo.png', color:'rgba(235,145,55,0.75)',  rounds:[[13,16],[20,23]] },
+        { img:'musicbank.webp',            color:'rgba(220,85,85,0.75)',   rounds:[[14,17],[21,24]] },
       ];
 
       const now    = new Date();
@@ -483,43 +484,44 @@
       const hasToday = isJune && todayD >= START && todayD <= END;
       const todayX   = hasToday ? ((todayD - START) + 0.5) * DAY_W : null;
       const timelineW = DAYS * DAY_W;
+      const todaySeg = todayX !== null
+        ? `<div class="sch-today-seg" style="left:${todayX}px;"></div>` : '';
 
-      let html = '';
+      // ── Labels column (fixed, does not scroll)
+      let lblHtml = `<div class="sch-lbl-hdr" style="height:${HDR_H}px;">JUN</div>`;
+      SHOWS.forEach((show, si) => {
+        lblHtml += `<div class="sch-lbl-row" style="height:${ROW_H}px;">
+          <img class="sch-lbl-img" src="${show.img}" alt="">
+        </div>`;
+        if (si < SHOWS.length - 1) lblHtml += `<div class="sch-sep-line" style="height:1px;"></div>`;
+      });
 
-      // ── Date header row
+      // ── Chart column (scrolls horizontally)
       let dateCells = '';
       for (let d = START; d <= END; d++) {
         const cls = (hasToday && d === todayD) ? ' sch-today-date' : '';
         dateCells += `<div class="sch-date-cell${cls}" style="width:${DAY_W}px;">${d}</div>`;
       }
-      const hdrSeg = todayX !== null
-        ? `<div class="sch-today-seg" style="left:${todayX}px;"></div>` : '';
-      html += `<div class="sch-header-row" style="height:${HDR_H}px;">
-        <div class="sch-label-cell" style="font-size:9px;letter-spacing:2px;color:rgba(255,255,255,0.25);">JUN</div>
-        <div class="sch-timeline-part" style="width:${timelineW}px;height:${HDR_H}px;">
-          <div class="sch-date-row">${dateCells}</div>${hdrSeg}
-        </div>
+      let chartHtml = `<div class="sch-chart-hdr" style="height:${HDR_H}px;min-width:${timelineW}px;">
+        <div class="sch-date-row">${dateCells}</div>${todaySeg}
       </div>`;
 
-      // ── Show rows
       SHOWS.forEach((show, si) => {
         let bars = '';
-        show.rounds.forEach((round, ri) => {
+        show.rounds.forEach(round => {
           const left  = (round[0] - START) * DAY_W;
           const width = (round[1] - round[0] + 1) * DAY_W;
           const isActive = hasToday && todayD >= round[0] && todayD <= round[1];
-          bars += `<div class="sch-bar${isActive ? ' sch-bar-active' : ''}" style="left:${left}px;width:${width}px;background:${show.color};"><span class="sch-bar-round">${ri + 1}</span></div>`;
+          bars += `<div class="sch-bar${isActive ? ' sch-bar-active' : ''}" style="left:${left}px;width:${width}px;background:${show.color};"></div>`;
         });
-        const todaySeg = todayX !== null
-          ? `<div class="sch-today-seg" style="left:${todayX}px;"></div>` : '';
-        html += `<div class="sch-show-row">
-          <div class="sch-label-cell" style="height:${ROW_H}px;">${show.name}</div>
-          <div class="sch-timeline-part sch-bars-row" style="width:${timelineW}px;height:${ROW_H}px;">${todaySeg}${bars}</div>
-        </div>`;
-        if (si < SHOWS.length - 1) html += `<div class="sch-sep-line" style="margin-left:80px;"></div>`;
+        chartHtml += `<div class="sch-chart-row" style="height:${ROW_H}px;min-width:${timelineW}px;">${todaySeg}${bars}</div>`;
+        if (si < SHOWS.length - 1) chartHtml += `<div class="sch-sep-line sch-chart-sep" style="height:1px;min-width:${timelineW}px;"></div>`;
       });
 
-      outer.innerHTML = html;
+      outer.innerHTML = `<div class="sch-wrapper">
+        <div class="sch-labels-col" style="width:${LABEL_W}px;">${lblHtml}</div>
+        <div class="sch-chart-col">${chartHtml}</div>
+      </div>`;
     }
 
     window.addEventListener('load', () => {

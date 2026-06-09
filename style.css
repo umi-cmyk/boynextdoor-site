@@ -652,61 +652,79 @@
     }
 
     /* ── Music Show Schedule ── */
-    .sch-outer {
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      padding-bottom: 16px;
-    }
-    .sch-outer::-webkit-scrollbar { display: none; }
+    .sch-outer { padding-bottom: 16px; }
 
-    .sch-header-row, .sch-show-row {
+    /* Two-column layout: fixed labels | scrollable chart */
+    .sch-wrapper {
       display: flex;
       align-items: stretch;
     }
 
-    .sch-label-cell {
-      width: 80px;
+    /* Left column — never scrolls */
+    .sch-labels-col {
       flex-shrink: 0;
-      position: sticky;
-      left: 0;
-      z-index: 2;
-      background: #000;
-      padding-right: 8px;
       display: flex;
-      align-items: center;
-      font-family: var(--fp);
-      font-size: 11px;
-      letter-spacing: 0.5px;
-      color: rgba(255,255,255,0.5);
-      text-transform: uppercase;
-      line-height: 1.3;
+      flex-direction: column;
     }
 
-    .sch-timeline-part {
-      flex-shrink: 0;
+    .sch-lbl-hdr {
+      display: flex;
+      align-items: flex-end;
+      padding-bottom: 6px;
+      font-family: var(--fp);
+      font-size: 24px;
+      letter-spacing: 3px;
+      color: rgba(255,255,255,0.25);
+    }
+
+    .sch-lbl-row {
+      display: flex;
+      align-items: center;
+      padding-right: 10px;
+    }
+
+    .sch-lbl-img {
+      max-width: 100%;
+      max-height: 38px;
+      width: auto;
+      object-fit: contain;
+      object-position: left center;
+    }
+
+    /* Right column — scrolls horizontally */
+    .sch-chart-col {
+      flex: 1;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .sch-chart-col::-webkit-scrollbar { display: none; }
+
+    .sch-chart-hdr {
       position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
     }
 
     .sch-date-row {
       display: flex;
       align-items: flex-end;
-      height: 100%;
     }
 
     .sch-date-cell {
       flex-shrink: 0;
       text-align: center;
       font-family: var(--fp);
-      font-size: 10px;
+      font-size: 22px;
       color: rgba(255,255,255,0.22);
-      padding-bottom: 5px;
+      padding-bottom: 4px;
     }
 
     .sch-today-date {
-      color: rgba(255,255,255,0.85);
+      color: rgba(255,255,255,0.9);
     }
 
-    .sch-bars-row {
+    .sch-chart-row {
       position: relative;
     }
 
@@ -716,17 +734,6 @@
       transform: translateY(-50%);
       height: 20px;
       border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
-
-    .sch-bar-round {
-      font-family: var(--fp);
-      font-size: 10px;
-      color: rgba(255,255,255,0.8);
-      pointer-events: none;
     }
 
     @keyframes sch-pulse {
@@ -739,8 +746,7 @@
 
     .sch-today-seg {
       position: absolute;
-      top: 0;
-      bottom: 0;
+      top: 0; bottom: 0;
       width: 1px;
       background: rgba(255,255,255,0.35);
       pointer-events: none;
@@ -748,7 +754,5 @@
     }
 
     .sch-sep-line {
-      height: 1px;
-      background: rgba(255,255,255,0.06);
-      margin: 0;
+      background: rgba(255,255,255,0.07);
     }
