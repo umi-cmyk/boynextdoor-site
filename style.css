@@ -650,3 +650,105 @@
     #checkin-celebrate.running {
       animation: celebrate-fade 3.2s ease forwards;
     }
+
+    /* ── Music Show Schedule ── */
+    .sch-outer {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 16px;
+    }
+    .sch-outer::-webkit-scrollbar { display: none; }
+
+    .sch-header-row, .sch-show-row {
+      display: flex;
+      align-items: stretch;
+    }
+
+    .sch-label-cell {
+      width: 80px;
+      flex-shrink: 0;
+      position: sticky;
+      left: 0;
+      z-index: 2;
+      background: #000;
+      padding-right: 8px;
+      display: flex;
+      align-items: center;
+      font-family: var(--fp);
+      font-size: 11px;
+      letter-spacing: 0.5px;
+      color: rgba(255,255,255,0.5);
+      text-transform: uppercase;
+      line-height: 1.3;
+    }
+
+    .sch-timeline-part {
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .sch-date-row {
+      display: flex;
+      align-items: flex-end;
+      height: 100%;
+    }
+
+    .sch-date-cell {
+      flex-shrink: 0;
+      text-align: center;
+      font-family: var(--fp);
+      font-size: 10px;
+      color: rgba(255,255,255,0.22);
+      padding-bottom: 5px;
+    }
+
+    .sch-today-date {
+      color: rgba(255,255,255,0.85);
+    }
+
+    .sch-bars-row {
+      position: relative;
+    }
+
+    .sch-bar {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      height: 20px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .sch-bar-round {
+      font-family: var(--fp);
+      font-size: 10px;
+      color: rgba(255,255,255,0.8);
+      pointer-events: none;
+    }
+
+    @keyframes sch-pulse {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.55; }
+    }
+    .sch-bar-active {
+      animation: sch-pulse 1.8s ease-in-out infinite;
+    }
+
+    .sch-today-seg {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: rgba(255,255,255,0.35);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .sch-sep-line {
+      height: 1px;
+      background: rgba(255,255,255,0.06);
+      margin: 0;
+    }
