@@ -463,12 +463,13 @@
       const outer = document.getElementById('schedule-outer');
       if (!outer) return;
 
-      const START  = 8, END = 25;
-      const DAYS   = END - START + 1; // 18
-      const DAY_W  = 34;  // px per day column
-      const ROW_H  = 70;  // px per show row
-      const HDR_H  = 52;  // date header height
-      const LABEL_W = 92; // left column width
+      const START   = 8, END = 25;
+      const DAYS    = END - START + 1; // 18
+      const DAY_W   = 34;  // px per day column
+      const ROW_H   = 72;  // px per show row
+      const HDR_H   = 52;  // date header height
+      const SHOW_W  = 64;  // show logo column width
+      const APPS_W  = 52;  // app icons column width
 
       const SHOWS = [
         { img:'showchampion.png', color:'rgba(155,105,230,0.75)', rounds:[[12,15],[19,22]], apps:['app-idolchamp.svg'] },
@@ -487,22 +488,28 @@
       const todaySeg = todayX !== null
         ? `<div class="sch-today-seg" style="left:${todayX}px;"></div>` : '';
 
-      // ── Labels column (fixed, does not scroll)
-      let lblHtml = `<div class="sch-lbl-hdr" style="height:${HDR_H}px;">JUN</div>`;
+      // ── 番組列（固定）
+      let showColHtml = `<div class="sch-col-hdr" style="height:${HDR_H}px;">JUN</div>`;
       SHOWS.forEach((show, si) => {
-        const appIcons = show.apps.map(a =>
-          `<img class="sch-lbl-app" src="${a}" alt="">`
-        ).join('');
-        lblHtml += `<div class="sch-lbl-row" style="height:${ROW_H}px;">
-          <div class="sch-lbl-content">
-            <img class="sch-lbl-img" src="${show.img}" alt="">
-            <div class="sch-lbl-apps">${appIcons}</div>
-          </div>
+        showColHtml += `<div class="sch-show-cell" style="height:${ROW_H}px;">
+          <img class="sch-show-img" src="${show.img}" alt="">
         </div>`;
-        if (si < SHOWS.length - 1) lblHtml += `<div class="sch-sep-line" style="height:1px;"></div>`;
+        if (si < SHOWS.length - 1) showColHtml += `<div class="sch-sep-line" style="height:1px;"></div>`;
       });
 
-      // ── Chart column (scrolls horizontally)
+      // ── アプリアイコン列（固定）
+      let appsColHtml = `<div class="sch-col-hdr" style="height:${HDR_H}px;"></div>`;
+      SHOWS.forEach((show, si) => {
+        const icons = show.apps.map(a =>
+          `<img class="sch-app-icon" src="${a}" alt="">`
+        ).join('');
+        appsColHtml += `<div class="sch-apps-cell" style="height:${ROW_H}px;">
+          <div class="sch-apps-stack">${icons}</div>
+        </div>`;
+        if (si < SHOWS.length - 1) appsColHtml += `<div class="sch-sep-line" style="height:1px;"></div>`;
+      });
+
+      // ── チャート列（横スクロール）
       let dateCells = '';
       for (let d = START; d <= END; d++) {
         const cls = (hasToday && d === todayD) ? ' sch-today-date' : '';
@@ -511,7 +518,6 @@
       let chartHtml = `<div class="sch-chart-hdr" style="height:${HDR_H}px;min-width:${timelineW}px;">
         <div class="sch-date-row">${dateCells}</div>${todaySeg}
       </div>`;
-
       SHOWS.forEach((show, si) => {
         let bars = '';
         show.rounds.forEach(round => {
@@ -525,7 +531,8 @@
       });
 
       outer.innerHTML = `<div class="sch-wrapper">
-        <div class="sch-labels-col" style="width:${LABEL_W}px;">${lblHtml}</div>
+        <div class="sch-show-col" style="width:${SHOW_W}px;">${showColHtml}</div>
+        <div class="sch-apps-col" style="width:${APPS_W}px;">${appsColHtml}</div>
         <div class="sch-chart-col">${chartHtml}</div>
       </div>`;
     }
