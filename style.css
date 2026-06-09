@@ -670,9 +670,11 @@
     .sch-lbl-hdr {
       display: flex;
       align-items: flex-end;
+      justify-content: center;
+      padding-right: 8px;
       padding-bottom: 6px;
       font-family: var(--fp);
-      font-size: 24px;
+      font-size: 26px;
       letter-spacing: 3px;
       color: rgba(255,255,255,0.25);
     }
@@ -680,15 +682,16 @@
     .sch-lbl-row {
       display: flex;
       align-items: center;
-      padding-right: 10px;
+      justify-content: center;
+      padding-right: 8px;
     }
 
     .sch-lbl-img {
       max-width: 100%;
-      max-height: 38px;
+      max-height: 40px;
       width: auto;
       object-fit: contain;
-      object-position: left center;
+      object-position: center;
     }
 
     /* Right column — scrolls horizontally */
@@ -715,7 +718,7 @@
       flex-shrink: 0;
       text-align: center;
       font-family: var(--fp);
-      font-size: 22px;
+      font-size: 27px;
       color: rgba(255,255,255,0.22);
       padding-bottom: 4px;
     }
