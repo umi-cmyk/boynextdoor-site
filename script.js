@@ -466,16 +466,16 @@
       const START  = 8, END = 25;
       const DAYS   = END - START + 1; // 18
       const DAY_W  = 34;  // px per day column
-      const ROW_H  = 56;  // px per show row
+      const ROW_H  = 70;  // px per show row
       const HDR_H  = 52;  // date header height
-      const LABEL_W = 76; // left column width
+      const LABEL_W = 92; // left column width
 
       const SHOWS = [
-        { img:'innga.png',        color:'rgba(80,150,240,0.75)',  rounds:[[8,12],[15,19]]  },
-        { img:'showchampion.png', color:'rgba(155,105,230,0.75)', rounds:[[12,15],[19,22]] },
-        { img:'showmusiccore.png',color:'rgba(65,190,120,0.75)',  rounds:[[16,18],[23,25]] },
-        { img:'M_Countdown.png',  color:'rgba(235,145,55,0.75)',  rounds:[[13,16],[20,23]] },
-        { img:'musicbank.png',    color:'rgba(220,85,85,0.75)',   rounds:[[14,17],[21,24]] },
+        { img:'showchampion.png', color:'rgba(155,105,230,0.75)', rounds:[[12,15],[19,22]], apps:['app-idolchamp.svg'] },
+        { img:'M_Countdown.png',  color:'rgba(235,145,55,0.75)',  rounds:[[13,16],[20,23]], apps:['app-mnetplus.svg'] },
+        { img:'musicbank.png',    color:'rgba(220,85,85,0.75)',   rounds:[[14,17],[21,24]], apps:['app-fancast.svg'] },
+        { img:'showmusiccore.png',color:'rgba(65,190,120,0.75)',  rounds:[[16,18],[23,25]], apps:['app-mubeat.svg','app-muniverse.svg'] },
+        { img:'innga.png',        color:'rgba(80,150,240,0.75)',  rounds:[[8,12],[15,19]],  apps:['app-linc.svg','app-higher.svg'] },
       ];
 
       const now    = new Date();
@@ -490,8 +490,14 @@
       // ── Labels column (fixed, does not scroll)
       let lblHtml = `<div class="sch-lbl-hdr" style="height:${HDR_H}px;">JUN</div>`;
       SHOWS.forEach((show, si) => {
+        const appIcons = show.apps.map(a =>
+          `<img class="sch-lbl-app" src="${a}" alt="">`
+        ).join('');
         lblHtml += `<div class="sch-lbl-row" style="height:${ROW_H}px;">
-          <img class="sch-lbl-img" src="${show.img}" alt="">
+          <div class="sch-lbl-content">
+            <img class="sch-lbl-img" src="${show.img}" alt="">
+            <div class="sch-lbl-apps">${appIcons}</div>
+          </div>
         </div>`;
         if (si < SHOWS.length - 1) lblHtml += `<div class="sch-sep-line" style="height:1px;"></div>`;
       });
