@@ -463,8 +463,8 @@
       const outer = document.getElementById('schedule-outer');
       if (!outer) return;
 
-      const START   = 8, END = 25;
-      const DAYS    = END - START + 1; // 18
+      const START   = 8, END = 28;
+      const DAYS    = END - START + 1; // 21
       const DAY_W   = 42;  // px per day column
       const ROW_H   = 90;  // px per show row
       const HDR_H   = 64;  // date header height
@@ -472,11 +472,11 @@
       const APPS_W  = 68;  // app icons column width
 
       const SHOWS = [
-        { img:'showchampion.png', color:'rgba(155,105,230,0.75)', rounds:[[12,15],[19,22]], apps:['app-idolchamp.svg'] },
-        { img:'M_Countdown.png',  color:'rgba(235,145,55,0.75)',  rounds:[[13,16],[20,23]], apps:['app-mnetplus.svg'] },
-        { img:'musicbank.png',    color:'rgba(220,85,85,0.75)',   rounds:[[14,17],[21,24]], apps:['app-fancast.svg'] },
-        { img:'showmusiccore.png',color:'rgba(65,190,120,0.75)',  rounds:[[16,18],[23,25]], apps:['app-mubeat.svg','app-muniverse.svg'] },
-        { img:'innga.png',        color:'rgba(80,150,240,0.75)',  rounds:[[8,12],[15,19]],  apps:['app-linc.svg','app-higher.svg'] },
+        { img:'showchampion.png', color:'rgba(155,105,230,0.75)', rounds:[[12,15],[19,22]], apps:['app-idolchamp.svg'], deadline:'14:59' },
+        { img:'M_Countdown.png',  color:'rgba(235,145,55,0.75)',  rounds:[[13,16],[20,23]], apps:['app-mnetplus.svg'],  deadline:'23:59' },
+        { img:'musicbank.png',    color:'rgba(220,85,85,0.75)',   rounds:[[14,17],[21,24]], apps:['app-fancast.svg'],   deadline:'11:00' },
+        { img:'showmusiccore.png',color:'rgba(65,190,120,0.75)',  rounds:[[16,18],[23,25]], apps:['app-mubeat.svg','app-muniverse.svg'], deadline:'11:00' },
+        { img:'innga.png',        color:'rgba(80,150,240,0.75)',  rounds:[[8,12],[15,19]],  apps:['app-linc.svg','app-higher.svg'],     deadline:'23:59' },
       ];
 
       const now    = new Date();
@@ -524,7 +524,7 @@
           const left  = (round[0] - START) * DAY_W;
           const width = (round[1] - round[0] + 1) * DAY_W;
           const isActive = hasToday && todayD >= round[0] && todayD <= round[1];
-          bars += `<div class="sch-bar${isActive ? ' sch-bar-active' : ''}" style="left:${left}px;width:${width}px;background:${show.color};"></div>`;
+          bars += `<div class="sch-bar${isActive ? ' sch-bar-active' : ''}" style="left:${left}px;width:${width}px;background:${show.color};"><span class="sch-bar-deadline">${show.deadline}</span></div>`;
         });
         chartHtml += `<div class="sch-chart-row" style="height:${ROW_H}px;min-width:${timelineW}px;">${todaySeg}${bars}</div>`;
         if (si < SHOWS.length - 1) chartHtml += `<div class="sch-sep-line sch-chart-sep" style="height:1px;min-width:${timelineW}px;"></div>`;

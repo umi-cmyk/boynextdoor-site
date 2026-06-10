@@ -760,6 +760,18 @@
       transform: translateY(-50%);
       height: 26px;
       border-radius: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .sch-bar-deadline {
+      font-size: 11px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.85);
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+      pointer-events: none;
     }
 
     @keyframes sch-pulse {
