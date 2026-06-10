@@ -465,11 +465,11 @@
 
       const START   = 8, END = 25;
       const DAYS    = END - START + 1; // 18
-      const DAY_W   = 34;  // px per day column
-      const ROW_H   = 72;  // px per show row
-      const HDR_H   = 52;  // date header height
-      const SHOW_W  = 64;  // show logo column width
-      const APPS_W  = 52;  // app icons column width
+      const DAY_W   = 42;  // px per day column
+      const ROW_H   = 90;  // px per show row
+      const HDR_H   = 64;  // date header height
+      const SHOW_W  = 80;  // show logo column width
+      const APPS_W  = 68;  // app icons column width
 
       const SHOWS = [
         { img:'showchampion.png', color:'rgba(155,105,230,0.75)', rounds:[[12,15],[19,22]], apps:['app-idolchamp.svg'] },

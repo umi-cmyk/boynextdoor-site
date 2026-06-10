@@ -675,7 +675,7 @@
       justify-content: center;
       padding-bottom: 6px;
       font-family: var(--fp);
-      font-size: 26px;
+      font-size: 30px;
       letter-spacing: 3px;
       color: rgba(255,255,255,0.25);
     }
@@ -690,7 +690,7 @@
 
     .sch-show-img {
       max-width: 100%;
-      max-height: 34px;
+      max-height: 44px;
       object-fit: contain;
     }
 
@@ -710,9 +710,9 @@
     }
 
     .sch-app-icon {
-      width: 26px;
-      height: 26px;
-      border-radius: 7px;
+      width: 34px;
+      height: 34px;
+      border-radius: 9px;
       object-fit: contain;
       flex-shrink: 0;
     }
@@ -741,7 +741,7 @@
       flex-shrink: 0;
       text-align: center;
       font-family: var(--fp);
-      font-size: 27px;
+      font-size: 32px;
       color: rgba(255,255,255,0.22);
       padding-bottom: 4px;
     }
@@ -758,8 +758,8 @@
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      height: 20px;
-      border-radius: 10px;
+      height: 26px;
+      border-radius: 13px;
     }
 
     @keyframes sch-pulse {
